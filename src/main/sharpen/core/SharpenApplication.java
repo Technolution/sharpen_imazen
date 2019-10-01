@@ -276,7 +276,7 @@ public class SharpenApplication {
 		JavaProjectCmd jpCmd = new JavaProjectCmd();
 		jpCmd.setProjectName(_args.project);
 		jpCmd.setProjectPath(_args.projectPath);
-		jpCmd.setSourceFolder(_args.sourceFolders);
+		jpCmd.setSourceFolders(_args.sourceFolders);
 		jpCmd.setclassPath(_args.classpath);
 		return jpCmd;
 	}
