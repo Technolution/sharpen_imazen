@@ -1861,7 +1861,7 @@ public class CSharpBuilder extends ASTVisitor {
 	
 	private String mappedMethodDeclarationName(MethodDeclaration node) {
 		final String mappedName = mappedMethodName(node);
-		if (null == mappedName || 0 == mappedName.length()|| mappedName.contains(".")) {
+		if (null == mappedName || 0 == mappedName.length()) {
 			return methodName(node.getName().toString());
 		}
 		return mappedName;
@@ -3485,8 +3485,7 @@ public class CSharpBuilder extends ASTVisitor {
 		final ITypeBinding[] originalTypes = originalMethod.getParameterTypes();
 		for (int i = 0; i < arguments.size(); ++i) {
 			final Expression arg = (Expression) arguments.get(i);
-			if (i < originalTypes.length && isGenericRuntimeParameterIdiom(originalMethod, originalTypes[i])
-			        && isClassLiteral(arg)) {
+			if (i < originalTypes.length && isGenericRuntimeParameterIdiom(originalMethod, originalTypes[i])) {
 				mie.addTypeArgument(genericRuntimeTypeIdiomType(actualTypes[i]));
 			} else {
 				addArgument(mie, arg, i < actualTypes.length ? actualTypes[i] : null);
