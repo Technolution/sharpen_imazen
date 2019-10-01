@@ -280,7 +280,7 @@ public class MappingsImpl implements Mappings {
 		String name = isNameMapping(mapping)
 			? mapping.name
 			: binding.getName();
-		return methodName(name);
+		return methodName(mapping, name);
 	}
 	
 	private boolean isStaticVoidMain(IMethodBinding binding) {
@@ -295,8 +295,9 @@ public class MappingsImpl implements Mappings {
 	    return null != mapping && null != mapping.name;
     }
 	
-	private String methodName(String name) {
-		return _configuration.getNamingStrategy().methodName(name);
+	private String methodName(MemberMapping mapping, String name) {
+	    boolean nameFromConfig = mapping != null && mapping.isFromConfig();
+		return nameFromConfig ? name : _configuration.getNamingStrategy().methodName(name);
 	}
 	
 	private IMethodBinding originalMethodBinding(IMethodBinding binding) {

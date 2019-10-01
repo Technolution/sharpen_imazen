@@ -120,20 +120,20 @@ class SharpenCommandLineParser extends CommandLineParser {
         } else if (areEqual(arg, "-methodMapping")) {
 			String from = consumeNext();
 			String to = consumeNext();
-			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(to, MemberKind.Method));
+			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(to, MemberKind.Method, true));
         } else if (areEqual(arg, "-typeMapping")) {
 			_cmdLine.typeMappings.add(consumeNameMapping());
         } else if (areEqual(arg, "-propertyMapping")) {
 			String from = consumeNext();
 			String to = consumeNext();
-			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(to, MemberKind.Property));
+			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(to, MemberKind.Property, true));
 		} else if (areEqual(arg, "-fieldMapping")) {
 			String from = consumeNext();
 			String to = consumeNext();
-			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(to, MemberKind.Field));
+			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(to, MemberKind.Field, true));
 		} else if (areEqual(arg, "-indexerMapping")) {
 			String from = consumeNext();
-			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(null, MemberKind.Indexer));
+			_cmdLine.memberMappings.put(from, new Configuration.MemberMapping(null, MemberKind.Indexer, true));
         } else if (areEqual(arg, "-removeTypeMapping")) {
 			String from = consumeNext();
 			_cmdLine.removeTypeMappings.add(from);

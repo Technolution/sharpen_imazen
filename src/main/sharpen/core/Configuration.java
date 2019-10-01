@@ -37,11 +37,21 @@ public abstract class Configuration {
     public static class MemberMapping {
 		public String name;
 		public MemberKind kind;
+		private final boolean fromConfig;
 		
 		public MemberMapping(String name, MemberKind kind) {
-			this.name = name;
-			this.kind = kind;
+		    this(name, kind, false);
 		}
+		
+        public boolean isFromConfig() {
+            return fromConfig;
+        }
+
+        public MemberMapping(String name, MemberKind kind, boolean fromConfig) {
+            this.name = name;
+            this.kind = kind;
+            this.fromConfig = fromConfig;
+        }
 		
 		@Override
 		public String toString() {
@@ -153,10 +163,10 @@ public abstract class Configuration {
 	    mapMethod("java.lang.AbstractStringBuilder.append", "Append");  
 	    mapMethod("java.lang.AbstractStringBuilder.insert", "Insert");
 	    
-	    mapMethod("java.lang.StringBuffer.deleteCharAt", runtimeMethod("deleteCharAt"));
-	    mapMethod("java.lang.AbstractStringBuilder.deleteCharAt", runtimeMethod("deleteCharAt"));
-	    mapMethod("java.lang.StringBuffer.setCharAt", runtimeMethod("setCharAt"));
-	    mapMethod("java.lang.AbstractStringBuilder.setCharAt", runtimeMethod("setCharAt"));
+	    mapMethod("java.lang.StringBuffer.deleteCharAt", runtimeMethod("DeleteCharAt"));
+	    mapMethod("java.lang.AbstractStringBuilder.deleteCharAt", runtimeMethod("DeleteCharAt"));
+	    mapMethod("java.lang.StringBuffer.setCharAt", runtimeMethod("SetCharAt"));
+	    mapMethod("java.lang.AbstractStringBuilder.setCharAt", runtimeMethod("SetCharAt"));
 	    
 	    mapProperty("java.lang.StringBuffer.setLength", "Length");
 	    mapProperty("java.lang.AbstractStringBuilder.setLength", "Length");
@@ -173,17 +183,17 @@ public abstract class Configuration {
 	    mapMethod("java.lang.String.replace", "Replace");
 	    mapMethod("java.lang.String.startsWith", "StartsWith");
 	    mapMethod("java.lang.String.endsWith", "EndsWith");
-		mapMethod("java.lang.String.substring", runtimeMethod("substring"));
+		mapMethod("java.lang.String.substring", runtimeMethod("Substring"));
 	    mapIndexer("java.lang.String.charAt");
 	    mapIndexer("java.lang.CharSequence.charAt");
-	    mapMethod("java.lang.String.getChars", runtimeMethod("getCharsForString"));
-	    mapMethod("java.lang.String.getBytes", runtimeMethod("getBytesForString"));
-	    mapMethod("java.lang.String.equalsIgnoreCase", runtimeMethod("equalsIgnoreCase"));
-	    mapMethod("java.lang.String.valueOf", runtimeMethod("getStringValueOf"));
-	    mapMethod("java.lang.String.String(byte[])", runtimeMethod("getStringForBytes"));
-	    mapMethod("java.lang.String.String(byte[],int,int)", runtimeMethod("getStringForBytes"));
-	    mapMethod("java.lang.String.String(byte[],int,int,java.lang.String)", runtimeMethod("getStringForBytes"));
-	    mapMethod("java.lang.String.String(byte[],java.lang.String)", runtimeMethod("getStringForBytes"));
+	    mapMethod("java.lang.String.getChars", runtimeMethod("GetCharsForString"));
+	    mapMethod("java.lang.String.getBytes", runtimeMethod("GetBytesForString"));
+	    mapMethod("java.lang.String.equalsIgnoreCase", runtimeMethod("EqualsIgnoreCase"));
+	    mapMethod("java.lang.String.valueOf", runtimeMethod("GetStringValueOf"));
+	    mapMethod("java.lang.String.String(byte[])", runtimeMethod("GetStringForBytes"));
+	    mapMethod("java.lang.String.String(byte[],int,int)", runtimeMethod("GetStringForBytes"));
+	    mapMethod("java.lang.String.String(byte[],int,int,java.lang.String)", runtimeMethod("GetStringForBytes"));
+	    mapMethod("java.lang.String.String(byte[],java.lang.String)", runtimeMethod("GetStringForBytes"));
 	    mapProperty("java.lang.String.length", "Length");
 	    mapProperty("java.lang.CharSequence.length", "Length");
 	}
@@ -383,11 +393,11 @@ public abstract class Configuration {
 	}
 
 	public void mapField(String fromQualifiedName, String to) {
-		mapMember(fromQualifiedName, new MemberMapping(to, MemberKind.Field));
+		mapMember(fromQualifiedName, new MemberMapping(to, MemberKind.Field, true));
 	}
 
 	public void mapMethod(String fromQualifiedName, String to) {
-		mapMember(fromQualifiedName, new MemberMapping(to, MemberKind.Method));
+		mapMember(fromQualifiedName, new MemberMapping(to, MemberKind.Method, true));
 	}
 
     protected void unmapMethod(String fromQualifiedName) {
@@ -395,11 +405,11 @@ public abstract class Configuration {
 	}
 	
 	public void mapIndexer(String fromQualifiedName) {
-		mapMember(fromQualifiedName, new MemberMapping(null, MemberKind.Indexer));
+		mapMember(fromQualifiedName, new MemberMapping(null, MemberKind.Indexer, true));
 	}
 
 	public void mapProperty(String fromQualifiedName, String to) {
-		mapMember(fromQualifiedName, new MemberMapping(to, MemberKind.Property));
+		mapMember(fromQualifiedName, new MemberMapping(to, MemberKind.Property, true));
 	}
 
     protected void unmapProperty(String fromQualifiedName) {
