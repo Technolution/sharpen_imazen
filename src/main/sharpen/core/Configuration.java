@@ -123,6 +123,8 @@ public abstract class Configuration {
 	
 	private List<String> _partialTypes = new ArrayList<String>();
 	
+	private Set<String> ignoreAnnotations = new HashSet<String>();
+	
 	/**
 	 * Maps package names to expressions used in conditional compilation. 
 	 * Sub-packages will be considered to match also. 
@@ -137,6 +139,7 @@ public abstract class Configuration {
 
 	protected void setUpAnnotationMappings() {
 		mapType("java.lang.Deprecated", "System.Obsolete");
+		addIgnoreAnnotation("java.lang.Override");
     }
 
 	protected void setUpStringMappings() {		
@@ -550,7 +553,7 @@ public abstract class Configuration {
 	}
 
 	public boolean isIgnoredAnnotation(String typeName) {
-	    return typeName.equals("java.lang.Override");
+	    return ignoreAnnotations.contains(typeName);
     }
 
 	public void conditionalCompilation(Map<String, String> conditionalCompilation) {
@@ -606,5 +609,13 @@ public abstract class Configuration {
 
     public void enableNumberValueGetter(){
         _numberValueGetter = true;
+    }
+    
+    public void addIgnoreAnnotation(String annotationName) {
+        ignoreAnnotations.add(annotationName);
+    }
+    
+    public void addIgnoreAnnotations(Collection<String> annotationNames) {
+        ignoreAnnotations.addAll(annotationNames);
     }
 }

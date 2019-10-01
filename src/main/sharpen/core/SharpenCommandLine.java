@@ -93,5 +93,6 @@ public class SharpenCommandLine {
 	public String configurationClass;
 	public boolean junitConversion;
 	public String sharpenNamespace;
+    final public List<String> ignoreAnnotations = new ArrayList<String>();
 	public boolean help;
 }

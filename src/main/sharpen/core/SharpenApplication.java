@@ -253,6 +253,8 @@ public class SharpenApplication {
         for (String from : _args.removeMemberMappings) {
 			configuration.unmapMember(from);
         }
+        
+        configuration.addIgnoreAnnotations(_args.ignoreAnnotations);
         return configuration;
 	}
 

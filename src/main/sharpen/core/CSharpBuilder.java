@@ -1550,7 +1550,9 @@ public class CSharpBuilder extends ASTVisitor {
 	}
 
 	private boolean isIgnoredAnnotation(Annotation m) {
-		return _configuration.isIgnoredAnnotation(qualifiedName(m.resolveAnnotationBinding().getAnnotationType()));
+	    String qualifiedName = qualifiedName(m.resolveAnnotationBinding().getAnnotationType());
+	    boolean ignoredAnnotation = _configuration.isIgnoredAnnotation(qualifiedName);
+        return ignoredAnnotation;
     }
 
 	private void mapMarkerAnnotation(MarkerAnnotation annotation, CSAttributesContainer member) {
