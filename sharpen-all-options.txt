@@ -284,6 +284,11 @@
 -propertyMapping java.math.BigInteger.ZERO Zero
 -methodMapping java.util.Map.get SafeGet
 
+-typeMapping java.lang.Integer int?
+-typeMapping java.lang.Long long?
+-typeMapping java.lang.Boolean bool?
+-typeMapping java.lang.Short short?
+
 -typeMapping nl.technolution.asn1.impl.schema.SchemaParserContext.LoggingErrorListener CmobileModel.LoggingErrorListener
 -typeMapping org.antlr.v4.runtime.Recognizer Antlr4.Runtime.IRecognizer
 -typeMapping org.antlr.v4.runtime.tree.ParseTree Antlr4.Runtime.Tree.IParseTree
